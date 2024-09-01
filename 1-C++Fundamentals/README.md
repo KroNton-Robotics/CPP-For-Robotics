@@ -1,6 +1,23 @@
 # C++ Fundamentals for Robotics
 
 ![alt text](images/image1.png)
+- [C++ Fundamentals for Robotics](#c-fundamentals-for-robotics)
+  - [1. Introduction to C++](#1-introduction-to-c)
+    - [1.1 Key Features of C++](#11-key-features-of-c)
+  - [2. Basic Syntax and Structure](#2-basic-syntax-and-structure)
+    - [2.1 Comments](#21-comments)
+    - [Example: Basic Hello World Program](#example-basic-hello-world-program)
+  - [3. Data Types, Variables, and Constants](#3-data-types-variables-and-constants)
+    - [3.1 Variables](#31-variables)
+    - [3.2 Constants](#32-constants)
+    - [Example: Adding Two Numbers](#example-adding-two-numbers)
+    - [Example: Calculating the Area of a Circle](#example-calculating-the-area-of-a-circle)
+  - [4. Control Structures](#4-control-structures)
+    - [4.1 Conditionals](#41-conditionals)
+    - [4.2 Loops](#42-loops)
+    - [Example: Checking if a Number is Even or Odd](#example-checking-if-a-number-is-even-or-odd)
+    - [Example: Printing Numbers from 1 to 10](#example-printing-numbers-from-1-to-10)
+    - [Example: Sum of Natural Numbers Using a While Loop](#example-sum-of-natural-numbers-using-a-while-loop)
 
 ## 1. Introduction to C++
 
@@ -30,6 +47,7 @@ int main() { // Main function, entry point of the program
 
 In this example, the `#include` directive is used to include a header file, `int main()` defines the entry point of the program, and `std::cout` is used to output text to the console.
 
+
 ### 2.1 Comments
 
 C++ supports two types of comments:
@@ -37,6 +55,7 @@ C++ supports two types of comments:
 - **Single-line comments**: Start with `//` and continue to the end of the line.
 - **Multi-line comments**: Start with `/*` and end with `*/`.
 
+ ### [Example: Basic Hello World Program](src/ex1.cpp)
 ---
 
 ## 3. Data Types, Variables, and Constants
@@ -64,6 +83,9 @@ Constants are variables whose values cannot be changed after initialization. You
 const int MAX_SIZE = 100; // Constant integer with a value of 100
 #define PI 3.14159 // Preprocessor constant
 ```
+### [Example: Adding Two Numbers](src/ex2.cpp)
+
+### [Example: Calculating the Area of a Circle](src/ex3.cpp)
 
 ---
 
@@ -118,7 +140,8 @@ do {
     count++;
 } while (count < 5);
 ```
-
+### [Example: Checking if a Number is Even or Odd](src/ex4.cpp)
+### [Example: Printing Numbers from 1 to 10](src/ex5.cpp)
+### [Example: Sum of Natural Numbers Using a While Loop](src/ex6.cpp)
 ---
 
-That's a summary of the key topics for this week. Remember to practice writing simple C++ programs, focusing on understanding basic syntax, data types, variables, constants, and control structures. Happy coding!
