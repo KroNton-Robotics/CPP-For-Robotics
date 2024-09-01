@@ -1,7 +1,9 @@
 # C++ Fundamentals for Robotics
 
 ![alt text](images/image1.png)
+## Table Of Content
 - [C++ Fundamentals for Robotics](#c-fundamentals-for-robotics)
+  - [Table Of Content](#table-of-content)
   - [1. Introduction to C++](#1-introduction-to-c)
     - [1.1 Key Features of C++](#11-key-features-of-c)
   - [2. Basic Syntax and Structure](#2-basic-syntax-and-structure)
@@ -18,6 +20,7 @@
     - [Example: Checking if a Number is Even or Odd](#example-checking-if-a-number-is-even-or-odd)
     - [Example: Printing Numbers from 1 to 10](#example-printing-numbers-from-1-to-10)
     - [Example: Sum of Natural Numbers Using a While Loop](#example-sum-of-natural-numbers-using-a-while-loop)
+---
 
 ## 1. Introduction to C++
 
