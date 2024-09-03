@@ -20,6 +20,15 @@
     - [Example: Checking if a Number is Even or Odd](#example-checking-if-a-number-is-even-or-odd)
     - [Example: Printing Numbers from 1 to 10](#example-printing-numbers-from-1-to-10)
     - [Example: Sum of Natural Numbers Using a While Loop](#example-sum-of-natural-numbers-using-a-while-loop)
+  - [5. Functions](#5-functions)
+    - [5.1 Defining a Function](#51-defining-a-function)
+    - [5.2 Example: Simple Addition Function](#52-example-simple-addition-function)
+    - [5.3 Function Parameters and Arguments](#53-function-parameters-and-arguments)
+    - [5.4 Returning Values from Functions](#54-returning-values-from-functions)
+    - [5.5 Function Overloading](#55-function-overloading)
+    - [5.6 Example: Function to Calculate Factorial](#56-example-function-to-calculate-factorial)
+    - [Example: Function to Check if a Number is Prime](#example-function-to-check-if-a-number-is-prime)
+    - [Example: Function Overloading to Calculate Area](#example-function-overloading-to-calculate-area)
 ---
 
 ## 1. Introduction to C++
@@ -148,3 +157,106 @@ do {
 ### [Example: Sum of Natural Numbers Using a While Loop](src/ex6.cpp)
 ---
 
+## 5. Functions
+
+Functions are a way to encapsulate and reuse code. They allow you to break down complex problems into smaller, manageable pieces, which makes your code more organized and easier to understand.
+
+### 5.1 Defining a Function
+
+A function in C++ consists of a return type, a name, a parameter list, and a body. Here's the basic syntax:
+
+```cpp
+return_type function_name(parameter_list) {
+    // Function body
+    return value; // Optional: Only needed if return_type is not void
+}
+```
+
+### 5.2 Example: Simple Addition Function
+
+Let's look at a simple example where we define a function that adds two numbers and returns the result:
+
+```cpp
+int add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int result = add(3, 5); // Calling the add function
+    std::cout << "The sum is: " << result << std::endl; // Output: The sum is: 8
+    return 0;
+}
+```
+
+### 5.3 Function Parameters and Arguments
+
+Functions can take parameters (also known as arguments) that allow you to pass data into the function. These parameters act as placeholders for the actual values you provide when calling the function.
+
+- **Pass by Value**: The value of the argument is copied into the function parameter. Changes to the parameter do not affect the original argument.
+
+- **Pass by Reference**: You can pass arguments by reference using the `&` symbol. This allows the function to modify the original argument.
+
+```cpp
+void increment(int &value) {
+    value++;
+}
+
+int main() {
+    int num = 10;
+    increment(num);
+    std::cout << "Incremented value: " << num << std::endl; // Output: Incremented value: 11
+    return 0;
+}
+```
+
+### 5.4 Returning Values from Functions
+
+Functions can return a value to the caller using the `return` statement. The type of the returned value must match the function's return type.
+
+### 5.5 Function Overloading
+
+C++ allows you to define multiple functions with the same name, as long as they have different parameter lists. This is known as function overloading.
+
+```cpp
+int multiply(int a, int b) {
+    return a * b;
+}
+
+double multiply(double a, double b) {
+    return a * b;
+}
+
+int main() {
+    int result1 = multiply(3, 5); // Calls the int version
+    double result2 = multiply(3.5, 5.5); // Calls the double version
+    std::cout << "Int multiplication: " << result1 << std::endl; // Output: 15
+    std::cout << "Double multiplication: " << result2 << std::endl; // Output: 19.25
+    return 0;
+}
+```
+
+### 5.6 Example: Function to Calculate Factorial
+
+Let's create a function that calculates the factorial of a number using recursion:
+
+```cpp
+int factorial(int n) {
+    if (n <= 1) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+
+int main() {
+    int number = 5;
+    std::cout << "Factorial of " << number << " is: " << factorial(number) << std::endl; // Output: 120
+    return 0;
+}
+```
+
+### [Example: Function to Check if a Number is Prime](src/ex7.cpp)
+
+### [Example: Function Overloading to Calculate Area](src/ex8.cpp)
+
+---
