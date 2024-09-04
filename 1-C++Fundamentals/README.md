@@ -10,6 +10,11 @@
     - [2.1 Comments](#21-comments)
     - [Example: Basic Hello World Program](#example-basic-hello-world-program)
   - [3. Data Types, Variables, and Constants](#3-data-types-variables-and-constants)
+    - [1. **Integers**](#1-integers)
+    - [2. **Floating-Point Numbers**](#2-floating-point-numbers)
+    - [3. **Characters**](#3-characters)
+    - [4. **Booleans**](#4-booleans)
+    - [Data Type Summary:](#data-type-summary)
     - [3.1 Variables](#31-variables)
     - [3.2 Constants](#32-constants)
     - [Example: Adding Two Numbers](#example-adding-two-numbers)
@@ -74,10 +79,61 @@ C++ supports two types of comments:
 
 C++ has various data types for different kinds of values. Here's a brief overview:
 
-- **Integers**: Whole numbers. Common types include `int`, `short`, `long`, and `long long`.
-- **Floating-point numbers**: Numbers with fractional parts. Common types are `float` and `double`.
-- **Characters**: Single characters, using `char`.
-- **Booleans**: True or false values, using `bool`.
+### 1. **Integers**
+Integers are whole numbers that do not have a fractional component. Different types of integers can be used depending on the range of values you need.
+
+- **`int`**: The most commonly used integer type, typically 32 bits on most systems, representing values from `-2,147,483,648` to `2,147,483,647`.
+- **`short`**: A smaller integer type, typically 16 bits, with a range from `-32,768` to `32,767`.
+- **`long`**: A larger integer type, typically 32 or 64 bits, with a range that can extend beyond a regular `int`.
+- **`long long`**: An even larger integer, usually 64 bits, used when you need to store very large numbers.
+
+**Examples:**
+```cpp
+int a = 42;           // Standard integer
+short b = 32767;      // Maximum value for a short
+long c = 1234567890;  // Long integer
+long long d = 9223372036854775807LL; // Long long integer
+```
+
+### 2. **Floating-Point Numbers**
+Floating-point numbers are used to represent real numbers that can have fractional parts. They are especially useful for representing numbers that require a decimal point.
+
+- **`float`**: A single-precision floating-point number, typically 32 bits, with a precision of about 7 decimal digits.
+- **`double`**: A double-precision floating-point number, typically 64 bits, with a precision of about 15 decimal digits.
+
+**Examples:**
+```cpp
+float e = 3.14f;        // Single-precision floating point
+double f = 3.14159265;  // Double-precision floating point
+```
+
+### 3. **Characters**
+The `char` type is used to store individual characters. Each character is typically stored as a single byte (8 bits).
+
+- **`char`**: Stores a single character or a small integer value (0 to 255 for unsigned, -128 to 127 for signed).
+
+**Examples:**
+```cpp
+char g = 'A';   // Character 'A'
+char h = 65;    // ASCII value for 'A'
+```
+
+### 4. **Booleans**
+The `bool` type is used to represent true or false values. In C++ and many other languages, `true` is often represented by `1` and `false` by `0`.
+
+- **`bool`**: Can be `true` or `false`.
+
+**Examples:**
+```cpp
+bool i = true;   // Boolean true
+bool j = false;  // Boolean false
+```
+
+### Data Type Summary:
+- **`int`, `short`, `long`, `long long`**: Different types of integers, varying in size and range.
+- **`float`, `double`**: Floating-point numbers for representing real numbers with fractional parts.
+- **`char`**: Stores a single character or small integer value.
+- **`bool`**: Represents true or false values.
 
 ### 3.1 Variables
 
