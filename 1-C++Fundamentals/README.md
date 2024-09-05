@@ -8,12 +8,14 @@
     - [1.1 Key Features of C++](#11-key-features-of-c)
   - [2. Basic Syntax and Structure](#2-basic-syntax-and-structure)
     - [2.1 Comments](#21-comments)
-    - [Example: Basic Hello World Program](#example-basic-hello-world-program)
+    - [2.3 Installing g++ on Ubuntu](#23-installing-g-on-ubuntu)
+    - [2.4 Compile first CPP file: `ex1.cpp`](#24-compile-first-cpp-file-ex1cpp)
+    - [Example: Basic Hello World Program ](#example-basic-hello-world-program-)
   - [3. Data Types, Variables, and Constants](#3-data-types-variables-and-constants)
-    - [1. **Integers**](#1-integers)
-    - [2. **Floating-Point Numbers**](#2-floating-point-numbers)
-    - [3. **Characters**](#3-characters)
-    - [4. **Booleans**](#4-booleans)
+    - [1. Integers](#1-integers)
+    - [2. Floating-Point Numbers](#2-floating-point-numbers)
+    - [3. Characters](#3-characters)
+    - [4. Booleans](#4-booleans)
     - [Data Type Summary:](#data-type-summary)
     - [3.1 Variables](#31-variables)
     - [3.2 Constants](#32-constants)
@@ -32,7 +34,11 @@
     - [5.4 Returning Values from Functions](#54-returning-values-from-functions)
     - [5.5 Function Overloading](#55-function-overloading)
     - [5.6 Example: Function to Calculate Factorial](#56-example-function-to-calculate-factorial)
-    - [Example: Function to Check if a Number is Prime](#example-function-to-check-if-a-number-is-prime)
+      - [5.6.1 Function Definition:](#561-function-definition)
+      - [5.6.2 Main Function:](#562-main-function)
+      - [5.6.3 Recursion Flow:](#563-recursion-flow)
+      - [5.6.4 Final Output:](#564-final-output)
+      - [Summary:](#summary)
     - [Example: Function Overloading to Calculate Area](#example-function-overloading-to-calculate-area)
 ---
 
@@ -72,14 +78,73 @@ C++ supports two types of comments:
 - **Single-line comments**: Start with `//` and continue to the end of the line.
 - **Multi-line comments**: Start with `/*` and end with `*/`.
 
- ### [Example: Basic Hello World Program](src/ex1.cpp)
----
+
+### 2.3 Installing g++ on Ubuntu
+
+To compile C++ code on Ubuntu, you need to have `g++` installed. Here's how to install it:
+
+1. **Update Package List**:
+   Open a terminal and update your package list to make sure you have the latest information about available packages:
+   ```bash
+   sudo apt update
+   ```
+
+2. **Install g++**:
+   Install `g++` by running the following command:
+   ```bash
+   sudo apt install g++
+   ```
+
+3. **Verify Installation**:
+   After installation, you can verify that `g++` is installed correctly by checking its version:
+   ```bash
+   g++ --version
+   ```
+
+   This should display the version of `g++` that is installed, confirming that the installation was successful.
+
+### 2.4 Compile first CPP file: `ex1.cpp`
+
+Here’s the complete example for your `Hello, World!` program:
+
+1. **Create the File**: Save the following code in a file named `ex1.cpp`:
+
+   ```cpp
+   #include <iostream> // Include a standard library for input/output operations
+
+   int main() { // Main function, entry point of the program
+       std::cout << "Hello, World!" << std::endl; // Output text to the console
+       return 0; // Return a status code to the operating system
+   }
+   ```
+
+2. **Compile and Run**:
+
+   - **Navigate to the Directory**: Open a terminal and navigate to the directory where `ex1.cpp` is saved.
+
+   - **Compile the Code**:
+     ```bash
+     g++ ex1.cpp -o hello
+     ```
+     This command compiles the `ex1.cpp` file and creates an executable named `hello`.
+
+   - **Run the Executable**:
+     ```bash
+     ./hello
+     ```
+     This command runs the executable, and you should see the output:
+     ```
+     Hello, World!
+     ```
+
+### [Example: Basic Hello World Program ](src/ex1.cpp)
+
 
 ## 3. Data Types, Variables, and Constants
 
 C++ has various data types for different kinds of values. Here's a brief overview:
 
-### 1. **Integers**
+### 1. Integers
 Integers are whole numbers that do not have a fractional component. Different types of integers can be used depending on the range of values you need.
 
 - **`int`**: The most commonly used integer type, typically 32 bits on most systems, representing values from `-2,147,483,648` to `2,147,483,647`.
@@ -95,7 +160,7 @@ long c = 1234567890;  // Long integer
 long long d = 9223372036854775807LL; // Long long integer
 ```
 
-### 2. **Floating-Point Numbers**
+### 2. Floating-Point Numbers
 Floating-point numbers are used to represent real numbers that can have fractional parts. They are especially useful for representing numbers that require a decimal point.
 
 - **`float`**: A single-precision floating-point number, typically 32 bits, with a precision of about 7 decimal digits.
@@ -103,11 +168,11 @@ Floating-point numbers are used to represent real numbers that can have fraction
 
 **Examples:**
 ```cpp
-float e = 3.14f;        // Single-precision floating point
+float e = 3.14;        // Single-precision floating point
 double f = 3.14159265;  // Double-precision floating point
 ```
 
-### 3. **Characters**
+### 3. Characters
 The `char` type is used to store individual characters. Each character is typically stored as a single byte (8 bits).
 
 - **`char`**: Stores a single character or a small integer value (0 to 255 for unsigned, -128 to 127 for signed).
@@ -118,7 +183,7 @@ char g = 'A';   // Character 'A'
 char h = 65;    // ASCII value for 'A'
 ```
 
-### 4. **Booleans**
+### 4. Booleans
 The `bool` type is used to represent true or false values. In C++ and many other languages, `true` is often represented by `1` and `false` by `0`.
 
 - **`bool`**: Can be `true` or `false`.
@@ -208,6 +273,12 @@ do {
     count++;
 } while (count < 5);
 ```
+- `while` and `do-while` Key Differences:
+
+  - `while loop` : Condition Checked First - May not execute at all if the condition is false from the beginning.
+
+  - `do-while loop` : Condition Checked After - Always executes at least once, regardless of the condition.
+
 ### [Example: Checking if a Number is Even or Odd](src/ex4.cpp)
 ### [Example: Printing Numbers from 1 to 10](src/ex5.cpp)
 ### [Example: Sum of Natural Numbers Using a While Loop](src/ex6.cpp)
@@ -292,6 +363,7 @@ int main() {
 ```
 
 ### 5.6 Example: Function to Calculate Factorial
+![fraction equation](images/image2.png)
 
 Let's create a function that calculates the factorial of a number using recursion:
 
@@ -310,9 +382,95 @@ int main() {
     return 0;
 }
 ```
+Let's break The code down step by step:
 
-### [Example: Function to Check if a Number is Prime](src/ex7.cpp)
+#### 5.6.1 Function Definition:
 
-### [Example: Function Overloading to Calculate Area](src/ex8.cpp)
+```cpp
+int factorial(int n) {
+    if (n <= 1) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+```
+
+- **Function Name:** `factorial`
+- **Parameter:** `int n` - The function takes a single integer parameter `n`, which is the number for which we want to calculate the factorial.
+
+- **Base Case:**
+  ```cpp
+  if (n <= 1) {
+      return 1;
+  }
+  ```
+  - The base case of the recursion is when `n` is less than or equal to `1`. In this case, the function returns `1`.
+  - This is because the factorial of `0` or `1` is `1` by definition.
+
+- **Recursive Case:**
+  ```cpp
+  return n * factorial(n - 1);
+  ```
+  - If `n` is greater than `1`, the function calls itself with `n-1` and multiplies the result by `n`.
+  - This recursive call continues until it reaches the base case.
+
+#### 5.6.2 Main Function:
+
+```cpp
+int main() {
+    int number = 5;
+    std::cout << "Factorial of " << number << " is: " << factorial(number) << std::endl;
+    return 0;
+}
+```
+
+- **Variable Declaration:**
+  ```cpp
+  int number = 5;
+  ```
+  - An integer variable `number` is declared and initialized with the value `5`. This is the number for which the factorial will be calculated.
+
+- **Function Call and Output:**
+  ```cpp
+  std::cout << "Factorial of " << number << " is: " << factorial(number) << std::endl;
+  ```
+  - The `factorial` function is called with `number` as the argument.
+  - The result of the function call is printed to the console using `std::cout`.
+  - The expected output will be `Factorial of 5 is: 120`.
+
+#### 5.6.3 Recursion Flow:
+Let's go through the recursion flow when `number = 5`:
+
+- **First Call:** `factorial(5)`  
+  Since `5 > 1`, it returns `5 * factorial(4)`.
+  
+- **Second Call:** `factorial(4)`  
+  Since `4 > 1`, it returns `4 * factorial(3)`.
+
+- **Third Call:** `factorial(3)`  
+  Since `3 > 1`, it returns `3 * factorial(2)`.
+
+- **Fourth Call:** `factorial(2)`  
+  Since `2 > 1`, it returns `2 * factorial(1)`.
+
+- **Fifth Call:** `factorial(1)`  
+  Since `1 <= 1`, it returns `1`.
+
+- **Backtracking:**
+  - `factorial(2)` returns `2 * 1 = 2`.
+  - `factorial(3)` returns `3 * 2 = 6`.
+  - `factorial(4)` returns `4 * 6 = 24`.
+  - `factorial(5)` returns `5 * 24 = 120`.
+
+#### 5.6.4 Final Output:
+- The final output is printed as: `Factorial of 5 is: 120`.
+
+#### Summary:
+- **Factorial Calculation:** The function calculates the factorial by multiplying the number by the factorial of the previous number until it reaches `1`.
+- **Recursion:** This approach uses recursion to break down the problem into smaller subproblems.
+- **Base Case:** The base case ensures the recursion stops when `n` is `1` or less.
+
+### [Example: Function Overloading to Calculate Area](src/ex7.cpp)
 
 ---
