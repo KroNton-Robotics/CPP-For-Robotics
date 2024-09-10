@@ -88,15 +88,11 @@ add_executable(hello_ros src/ex0.cpp)
 
 ### 0.5 Adding New Executable Files
 
-To add new C++ source files, simply update the `CMakeLists.txt` file by appending them to the `set(SOURCES ...)` list, like so:
+To add new C++ Executable files, simply update the `CMakeLists.txt` file by appending them to the `add_executable()` , like so:
 
 ```cmake
-set(SOURCES
-    src/ex1.cpp
-    src/ex2.cpp
-    src/ex3.cpp
-    src/new_example.cpp  # Add new example files here
-)
+#add executable main, this creates main.o
+add_executable(hello_ros src/ex0.cpp)
 
 ```
 
@@ -320,6 +316,6 @@ Let's go through the recursion flow when `number = 5`:
 - **Recursion:** This approach uses recursion to break down the problem into smaller subproblems.
 - **Base Case:** The base case ensures the recursion stops when `n` is `1` or less.
 
-### [Example: Function Overloading to Calculate Area](src/ex7.cpp)
+### [Example: Function Overloading to Calculate Area](source-code/examples/src/ex6.cpp)
 
 ---
