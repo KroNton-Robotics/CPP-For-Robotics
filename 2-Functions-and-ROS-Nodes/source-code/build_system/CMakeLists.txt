@@ -10,5 +10,3 @@ set(CMAKE_CXX_STANDARD 17)
 #add executable main, this creates main.o
 add_executable(hello_ros src/ex0.cpp)
 
-#tell the linker to bind these object files together and provide with the final executable
-target_link_libraries(hello_ros )
