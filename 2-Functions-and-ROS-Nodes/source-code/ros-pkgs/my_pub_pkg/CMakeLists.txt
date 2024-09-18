@@ -206,10 +206,10 @@ include_directories(
 
 
 # Add the node executable
-add_executable(topic_publisher src/topic_publisher.cpp)
+add_executable(counter_publisher src/counter_publisher.cpp)
 
 # Link the ROS libraries
-target_link_libraries(topic_publisher ${catkin_LIBRARIES})
+target_link_libraries(counter_publisher ${catkin_LIBRARIES})
 
 # Add dependencies for message headers
-add_dependencies(topic_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(counter_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
