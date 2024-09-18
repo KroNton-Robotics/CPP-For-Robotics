@@ -18,22 +18,33 @@
     - [Example Pass by Reference ](#example-pass-by-reference-)
     - [1.4 Returning Values from Functions](#14-returning-values-from-functions)
     - [1.5 Function Overloading](#15-function-overloading)
+    - [Example: Function Overloading to Calculate Area](#example-function-overloading-to-calculate-area)
     - [1.6 Example: Function to Calculate Factorial](#16-example-function-to-calculate-factorial)
       - [1.6.1 Function Definition:](#161-function-definition)
       - [5.6.2 Main Function:](#562-main-function)
       - [1.6.3 Recursion Flow:](#163-recursion-flow)
       - [1.6.4 Final Output:](#164-final-output)
       - [Summary:](#summary-1)
-    - [Example: Function Overloading to Calculate Area](#example-function-overloading-to-calculate-area)
-  - [2. Writing a ROS C++ Publisher Node that Keeps Counting](#2-writing-a-ros-c-publisher-node-that-keeps-counting)
-    - [2.1 Setting Up the ROS Workspace and Package](#21-setting-up-the-ros-workspace-and-package)
-      - [Step 1: Create a ROS Workspace](#step-1-create-a-ros-workspace)
-      - [Step 2: Create a ROS Package](#step-2-create-a-ros-package)
-    - [2.2 Writing the Publisher Node with a Counter](#22-writing-the-publisher-node-with-a-counter)
-    - [2.3 Explanation of the Code](#23-explanation-of-the-code)
-    - [2.4 Update `CMakeLists.txt`](#24-update-cmakeliststxt)
-    - [2.5 Build and Run the Node](#25-build-and-run-the-node)
-    - [Summary](#summary-2)
+  - [2. ROS 1 C++ Publisher Node – Counter Example](#2-ros-1-c-publisher-node--counter-example)
+    - [2.1 What is a ROS Publisher?](#21-what-is-a-ros-publisher)
+      - [ROS Node Architecture](#ros-node-architecture)
+    - [2.2 Node Overview](#22-node-overview)
+    - [2.3 Publisher Node Code](#23-publisher-node-code)
+    - [2.4 Code Explanation](#24-code-explanation)
+    - [2.5 Running the Node](#25-running-the-node)
+      - [Step 1: Add the Node to Your ROS Package](#step-1-add-the-node-to-your-ros-package)
+      - [Step 2: Build the Package](#step-2-build-the-package)
+      - [Step 3: Run the Node](#step-3-run-the-node)
+      - [Step 4: View the Messages](#step-4-view-the-messages)
+    - [2.6 Summary](#26-summary)
+  - [3. ROS 1 C++ Subscriber Node – Multiply by Two](#3-ros-1-c-subscriber-node--multiply-by-two)
+    - [3.1 What is a ROS Subscriber?](#31-what-is-a-ros-subscriber)
+      - [ROS Node Architecture](#ros-node-architecture-1)
+    - [3.2 Subscriber Node Code](#32-subscriber-node-code)
+    - [3.3 Code Explanation](#33-code-explanation)
+    - [3.4 Build System Using CMake](#34-build-system-using-cmake)
+    - [3.5 Build and Run the Subscriber Node](#35-build-and-run-the-subscriber-node)
+    - [3.6 Summary](#36-summary)
 ---
 
 ## 0. Build System Using CMake
@@ -215,6 +226,7 @@ int main() {
     return 0;
 }
 ```
+### [Example: Function Overloading to Calculate Area](source-code/examples/src/ex6.cpp)
 
 ### 1.6 Example: Function to Calculate Factorial
 ![fraction equation](images/image2.png)
@@ -325,212 +337,339 @@ Let's go through the recursion flow when `number = 5`:
 - **Recursion:** This approach uses recursion to break down the problem into smaller subproblems.
 - **Base Case:** The base case ensures the recursion stops when `n` is `1` or less.
 
-### [Example: Function Overloading to Calculate Area](source-code/examples/src/ex6.cpp)
+
 
 ---
+## 2. ROS 1 C++ Publisher Node – Counter Example
 
+In this module, we will guide you through creating a simple **ROS 1** publisher node using **C++** that publishes an incrementing counter to a topic named `/counter`.
 
+### 2.1 What is a ROS Publisher?
 
-## 2. Writing a ROS C++ Publisher Node that Keeps Counting
+In ROS, a **publisher** is a node that sends out messages to a specific topic. Other nodes can subscribe to that topic to receive the published messages. In this example, we will create a node that publishes integer messages to the `/counter` topic at a defined rate.
 
-In this section, we will write a ROS publisher node that continuously publishes a count to the `counter` topic. We will first set up the necessary ROS workspace and package, then move on to writing the publisher node.
+####  ROS Node Architecture
 
----
+This diagram illustrates the flow of a ROS publisher node sending messages to a topic and how potential subscribers receive these messages.
 
-### 2.1 Setting Up the ROS Workspace and Package
+```mermaid
+graph TD
+    A[Publisher Node] --> B[Message Creation]
+    B --> C[Publish Message]
+    C --> D[Topic: /counter]
+```
+### 2.2 Node Overview
 
-#### Step 1: Create a ROS Workspace
+This node will:
+- Publish an integer message that increments by 1 after each message.
+- Operate at a loop rate of 10 Hz, meaning it will publish 10 messages per second.
+- From [`std_msgs`](https://docs.ros.org/en/melodic/api/std_msgs/html/index-msg.html) use the [`std_msgs::Int32`](https://docs.ros.org/en/melodic/api/std_msgs/html/msg/Int32.html) message type  to publish the counter value.
 
-1. Open a terminal and create a directory for your ROS workspace:
-   ```bash
-   mkdir -p ~/ros_ws/src
-   ```
+### 2.3 Publisher Node Code
 
-2. Navigate to the workspace directory:
-   ```bash
-   cd ~/ros_ws
-   ```
-
-3. Initialize the workspace with `catkin_make`:
-   ```bash
-   catkin_make
-   ```
-
-4. Source your workspace to ensure ROS recognizes it:
-   ```bash
-   source devel/setup.bash
-   ```
-
-#### Step 2: Create a ROS Package
-
-1. Navigate to the `src` folder:
-   ```bash
-   cd ~/ros_ws/src
-   ```
-
-2. Use the `catkin_create_pkg` command to create a package. For this example, let's call the package `my_pub_pkg`, and we will depend on `roscpp` and `std_msgs`:
-   ```bash
-   catkin_create_pkg my_pub_pkg roscpp std_msgs
-   ```
-
-3. Navigate back to the workspace root and build the package:
-   ```bash
-   cd ~/ros_ws
-   catkin_make
-   ```
-
-4. Source the workspace again to update the environment:
-   ```bash
-   source devel/setup.bash
-   ```
-
----
-
-### 2.2 Writing the Publisher Node with a Counter
-
-Now that the workspace and package are ready, we can write the ROS publisher node.
-
-1. Inside the `src` directory of your package, create a `src` folder and a new C++ file for the publisher node:
-   ```bash
-   mkdir -p ~/ros_ws/src/my_pub_pkg/src
-   touch ~/ros_ws/src/my_pub_pkg/src/topic_publisher.cpp
-   ```
-
-2. Open `topic_publisher.cpp` in your preferred text editor and add the following code:
+Here’s the complete code for the ROS 1 C++ publisher node:
 
 ```cpp
-#include <ros/ros.h>
-#include <std_msgs/Int32.h>
+#include "ros/ros.h"
+#include "std_msgs/Int32.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
+    // Initialize the ROS system
+    ros::init(argc, argv, "counter_publisher");
 
-    // Initialize the ROS node
-    ros::init(argc, argv, "topic_publisher");
-
-    // Create a NodeHandle object
+    // Create a NodeHandle, which is the main access point to communication with the ROS system
     ros::NodeHandle nh;
 
-    // Create a publisher object that will publish to the 'counter' topic
-    ros::Publisher pub = nh.advertise<std_msgs::Int32>("counter", 1000);
+    // Create a publisher object to publish messages to the "/counter" topic
+    ros::Publisher counter_pub = nh.advertise<std_msgs::Int32>("/counter", 10);
 
-    // Set the loop rate to 2 Hz (2 times per second)
-    ros::Rate loop_rate(2);
+    // Define the loop rate (10 Hz)
+    ros::Rate loop_rate(10);
 
-    // Initialize the counter message with an integer value
-    std_msgs::Int32 count;
-    count.data = 0;
+    // Initialize the counter to 0
+    int count = 0;
 
-    // Main loop to continuously publish messages
+    // Keep running the loop until ROS is shut down
     while (ros::ok())
     {
-        // Publish the counter message to the topic
-        pub.publish(count);
+        // Create a message of type std_msgs::Int32
+        std_msgs::Int32 msg;
 
-        // Allow ROS to process callbacks
+        // Set the counter value to the message data
+        msg.data = count;
+
+        // Publish the message to the "/counter" topic
+        counter_pub.publish(msg);
+
+        // Log the counter value to the terminal for debugging
+        ROS_INFO("Published counter: %d", count);
+
+        // Increment the counter
+        count++;
+
+        // Allow ROS to process any incoming messages or events
         ros::spinOnce();
 
-        // Sleep to maintain the loop rate (2 Hz)
+        // Sleep for the time remaining to hit the 10 Hz rate
         loop_rate.sleep();
-
-        // Increment the counter value
-        ++count.data;
     }
 
     return 0;
 }
 ```
 
----
-### 2.3 Explanation of the Code
+### 2.4 Code Explanation
 
-1. **Node Initialization**:
-   - `ros::init(argc, argv, "topic_publisher")`: Initializes the node with the name `topic_publisher`, making it known to the ROS master.
-   
-2. **NodeHandle Creation**:
-   - `ros::NodeHandle nh`: The NodeHandle is used for node communication with the ROS system (e.g., publishing, subscribing).
-   
-3. **Creating a Publisher**:
-   - `ros::Publisher pub = nh.advertise<std_msgs::Int32>("counter", 1000)`: Advertises that this node will be publishing messages of type `std_msgs::Int32` on the `counter` topic, with a queue size of 1000.
-   
-4. **Setting the Loop Rate**:
-   - `ros::Rate loop_rate(2)`: Sets the rate at which the loop will run to 2 Hz (2 times per second).
+- **Include ROS and Message Headers**:
+    ```cpp
+    #include "ros/ros.h"
+    #include "std_msgs/Int32.h"
+    ```
+    - `ros/ros.h`: Provides essential ROS functionalities.
+    - `std_msgs::Int32.h`: Defines the `Int32` message type, which is used to publish integer data.
 
-5. **Publishing the Counter**:
-   - `std_msgs::Int32 count; count.data = 0;`: A message of type `std_msgs::Int32` is initialized with an integer value of 0.
-   - `pub.publish(count)`: The message is published to the `counter` topic.
+- **Main Function**:
+    ```cpp
+    int main(int argc, char **argv)
+    {
+        ros::init(argc, argv, "counter_publisher");
+    ```
+    - Initializes the node with the name `"counter_publisher"`.
+    - Takes the command-line arguments and passes them to ROS for configuration.
 
-6. **Loop**:
-   - `ros::spinOnce()`: Allows ROS to process incoming messages or events (e.g., service callbacks). Although not strictly necessary here, it's good practice to include it in a loop.
-   - `loop_rate.sleep()`: Sleeps for the remaining time in the loop to maintain the specified rate (2 Hz).
-   - `++count.data;`: Increments the counter with each iteration.
+- **NodeHandle and Publisher Creation**:
+    ```cpp
+        ros::NodeHandle nh;
+        ros::Publisher counter_pub = nh.advertise<std_msgs::Int32>("/counter", 10);
+    ```
+    - The `NodeHandle` allows communication with the ROS system.
+    - `advertise()` creates a publisher that will publish messages of type `std_msgs::Int32` to the `/counter` topic, with a queue size of 10.
 
+- **Setting the Loop Rate**:
+    ```cpp
+        ros::Rate loop_rate(10);
+    ```
+    - This sets the loop rate at 10 Hz, meaning the node will publish messages 10 times per second.
 
-### 2.4 Update `CMakeLists.txt`
+- **Main Loop**:
+    ```cpp
+        int count = 0;
+        while (ros::ok())
+        {
+            std_msgs::Int32 msg;
+            msg.data = count;
+            counter_pub.publish(msg);
+            ROS_INFO("Published counter: %d", count);
+            count++;
+            ros::spinOnce();
+            loop_rate.sleep();
+        }
+    ```
+    - **`ros::ok()`**: Keeps the loop running as long as ROS is not shut down.
+    - **Message Creation**: Each loop iteration creates a message of type `std_msgs::Int32`, sets the `data` field to the value of `count`, and publishes it to the `/counter` topic.
+    - **Logging**: `ROS_INFO` prints the current counter value to the terminal.
+    - **`count++`**: Increments the counter by 1 after every iteration.
+    - **`ros::spinOnce()`**: Allows ROS to process callbacks (required when subscribing or using timers).
+    - **`loop_rate.sleep()`**: Pauses the loop to ensure the node maintains the 10 Hz rate.
 
-After writing the C++ node, ensure your `CMakeLists.txt` file includes the necessary instructions to build the node.
+### 2.5 Running the Node
 
-1. Open the `CMakeLists.txt` file located in the `my_pub_pkg` directory:
-   ```bash
-   nano ~/ros_ws/src/my_pub_pkg/CMakeLists.txt
-   ```
+#### Step 1: Add the Node to Your ROS Package
 
-2. Add the following lines under the section where executables are defined:
+Place the `.cpp` file in your package's `src/` directory and update the `CMakeLists.txt` file by adding the following lines:
 
 ```cmake
-# Add the node executable
-add_executable(topic_publisher src/topic_publisher.cpp)
-
-# Link the ROS libraries
-target_link_libraries(topic_publisher ${catkin_LIBRARIES})
-
-# Add dependencies for message headers
-add_dependencies(topic_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_executable(counter_publisher src/counter_publisher.cpp)
+target_link_libraries(counter_publisher ${catkin_LIBRARIES})
 ```
 
----
+#### Step 2: Build the Package
 
-### 2.5 Build and Run the Node
+```bash
+cd ~/catkin_ws
+catkin_make
+```
 
-1. **Build the workspace**:
+#### Step 3: Run the Node
+
+```bash
+rosrun your_package_name counter_publisher
+```
+
+#### Step 4: View the Messages
+
+You can view the published messages using the following command:
+
+```bash
+rostopic echo /counter
+```
+<img src="images/pub.gif" width="700" alt="Description of GIF">
+
+### 2.6 Summary
+
+- This module demonstrated how to create a simple ROS 1 publisher node in C++ that publishes an incrementing counter to a topic.
+- The node runs in a loop, publishing messages at a rate of 10 Hz.
+- Understanding this fundamental publisher concept is crucial for developing more advanced ROS applications.
+
+
+
+## 3. ROS 1 C++ Subscriber Node – Multiply by Two
+
+In this module, we will create a ROS subscriber node that subscribes to the `/counter` topic, takes the integer value published by the publisher node, and multiplies it by two.
+
+### 3.1 What is a ROS Subscriber?
+
+A ROS subscriber node listens to a specified topic and processes incoming messages. In this module, the subscriber will perform a simple operation: multiplying the received integer value by two.
+####  ROS Node Architecture
+
+This diagram illustrates the flow of a ROS publisher node sending messages to a topic and how potential subscribers receive these messages.
+
+```mermaid
+graph TD
+    A[Publisher Node] --> B[Message Creation]
+    B --> C[Publish Message]
+    C --> D[Topic: /counter]
+    D --> E[Subscriber Node]
+    E --> F[Process Message 
+    **multiply by two**]
+```
+
+### 3.2 Subscriber Node Code
+
+Here is the complete code for the ROS subscriber node:
+
+```cpp
+#include "ros/ros.h"
+#include "std_msgs/Int32.h"
+
+// Callback function to handle incoming messages
+void counterCallback(const std_msgs::Int32::ConstPtr& msg)
+{
+    // Retrieve the integer value from the message
+    int received_value = msg->data;
+
+    // Multiply the received value by two
+    int result = received_value * 2;
+
+    // Log the result
+    ROS_INFO("Received value: %d, Multiplied by two: %d", received_value, result);
+}
+
+int main(int argc, char **argv)
+{
+    // Initialize the ROS node
+    ros::init(argc, argv, "counter_subscriber");
+
+    // Create a NodeHandle
+    ros::NodeHandle nh;
+
+    // Create a Subscriber object and subscribe to the /counter topic
+    ros::Subscriber sub = nh.subscribe("/counter", 1000, counterCallback);
+
+    // Spin to keep the node alive and process incoming messages
+    ros::spin();
+
+    return 0;
+}
+```
+
+### 3.3 Code Explanation
+
+- **Include Headers**:
+  ```cpp
+  #include "ros/ros.h"
+  #include "std_msgs/Int32.h"
+  ```
+
+  Includes the necessary ROS headers and message type for working with integer data.
+
+- **Callback Function**:
+  ```cpp
+  void counterCallback(const std_msgs::Int32::ConstPtr& msg)
+  {
+      int received_value = msg->data;
+      int result = received_value * 2;
+      ROS_INFO("Received value: %d, Multiplied by two: %d", received_value, result);
+  }
+  ```
+
+  The `counterCallback` function is called whenever a new message is received on the `/counter` topic. It retrieves the integer value, multiplies it by two, and logs the result.
+
+- **Main Function**:
+  ```cpp
+  int main(int argc, char **argv)
+  {
+      ros::init(argc, argv, "counter_subscriber");
+      ros::NodeHandle nh;
+      ros::Subscriber sub = nh.subscribe("/counter", 1000, counterCallback);
+      ros::spin();
+      return 0;
+  }
+  ```
+
+  Initializes the ROS node, creates a `NodeHandle`, subscribes to the `/counter` topic, and enters the `ros::spin()` loop to keep the node alive and processing messages.
+
+### 3.4 Build System Using CMake
+
+To build the subscriber node, you'll need to update your `CMakeLists.txt` file to include this new executable.
+
+Here's how to update the `CMakeLists.txt` file:
+
+```cmake
+cmake_minimum_required(VERSION 3.1)
+project(counter_project)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_executable(counter_subscriber src/subscriber.cpp)
+target_link_libraries(counter_subscriber ${catkin_LIBRARIES})
+```
+
+### 3.5 Build and Run the Subscriber Node
+
+1. **Create a new package (`my_sub_pkg`)**:
+   ```bash
+   cd ~/ros_ws/src
+   catkin_create_pkg my_sub_pkg roscpp std_msgs
+   ```
+
+2. **create your subscriber node code**:
+- create your `counter_subscriber.cpp` file inside the `src` folder of `my_sub_pkg`:
+  ```bash
+   touch  ~/ros_ws/src/my_sub_pkg/src/counter_subscriber.cpp
+  ```
+
+1. **Edit `CMakeLists.txt` to build the subscriber node**:
+   Open `~/ros_ws/src/my_sub_pkg/CMakeLists.txt` and add the following lines to ensure your subscriber node is built:
+   ```cmake
+   add_executable(counter_subscriber src/counter_subscriber.cpp)
+   target_link_libraries(counter_subscriber ${catkin_LIBRARIES})
+   ```
+
+2. **Build the workspace**:
    ```bash
    cd ~/ros_ws
    catkin_make
    ```
 
-2. **Run the ROS master**:
+3. **Source the workspace**:
    ```bash
-   roscore
+   source ~/ros_ws/devel/setup.bash
    ```
 
-3. **Run the publisher node**:
+4. **Run the subscriber node**:
    ```bash
-   rosrun my_pub_pkg topic_publisher
+   rosrun my_sub_pkg counter_subscriber
    ```
 
-4. **Check the topic**:
-   To see the messages being published to the `counter` topic, use:
-   ```bash
-   rostopic echo /counter
-   ```
+This process will create a new ROS package, build it, and run the subscriber node.
+Make sure your publisher node is running to see the subscriber in action.
 
-You should see output similar to:
+<img src="images/sub.gif" width="700" alt="Description of GIF">
 
-```bash
-data: 0
-data: 1
-data: 2
-data: 3
-...
-```
+### 3.6 Summary
+
+In this module, you created a ROS subscriber node that listens to the `/counter` topic, multiplies the received integer value by two, and logs the result. This demonstrates how to process and handle incoming messages in ROS.
 
 ---
-
-### Summary
-
-- **Workspace Setup**: You first created a ROS workspace and a package with the necessary dependencies.
-- **Publisher Node**: The C++ publisher node continuously publishes an incrementing integer to the `counter` topic.
-- **Build System**: Updated `CMakeLists.txt` to compile and link the node.
-- **Running the Node**: After building the workspace, you can run the publisher node and monitor its output using `rostopic echo`.
-
-
-
