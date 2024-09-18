@@ -487,14 +487,21 @@ target_link_libraries(counter_publisher ${catkin_LIBRARIES})
 #### Step 2: Build the Package
 
 ```bash
-cd ~/catkin_ws
+mkdir -p ~/ros_ws/src
+cd ~/ros_ws
 catkin_make
 ```
-
+```bash
+cd ~/ros_ws/src
+catkin_create_pkg my_pub_pkg roscpp std_msgs
+cd ~/ros_ws
+catkin_make
+```
 #### Step 3: Run the Node
 
 ```bash
-rosrun your_package_name counter_publisher
+source /devel/setup.bash
+rosrun my_pub_pkg counter_publisher
 ```
 
 #### Step 4: View the Messages
