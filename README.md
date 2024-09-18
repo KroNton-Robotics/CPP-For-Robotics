@@ -6,3 +6,4 @@
 
 ## [B- Functions-and-ROS-Nodes](./2-Functions-and-ROS-Nodes/README.md)
 
+## [C- Dive Deeper Into ROS Nodes](./3-Dive-Deeper-Into-ROS-Nodes/README.md)
